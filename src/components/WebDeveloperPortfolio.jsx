@@ -1,8 +1,6 @@
-// Web Developer Portfolio (React, JavaScript version without GSAP)
-// Filename: WebDeveloperPortfolio.jsx
-
 import React, { useRef, useEffect, useState } from "react";
 import { Renderer, Program, Triangle, Mesh } from "ogl";
+import ProfileImg from "../images/profile.svg"
 
 // Utility to convert hex to normalized rgb
 const hexToRgb = (hex) => {
@@ -173,7 +171,11 @@ void main() {
       uniformsRef.current = uniforms;
 
       const geometry = new Triangle(gl);
-      const program = new Program(gl, { vertex: vert, fragment: frag, uniforms });
+      const program = new Program(gl, {
+        vertex: vert,
+        fragment: frag,
+        uniforms,
+      });
       const mesh = new Mesh(gl, { geometry, program });
       meshRef.current = mesh;
 
@@ -186,11 +188,7 @@ void main() {
       };
 
       const loop = (t) => {
-        if (
-          !rendererRef.current ||
-          !uniformsRef.current ||
-          !meshRef.current
-        )
+        if (!rendererRef.current || !uniformsRef.current || !meshRef.current)
           return;
         uniforms.iTime.value = t * 0.001;
         try {
@@ -284,22 +282,23 @@ const projects = [
   {
     id: 1,
     title: "Sundown Studio",
-    description: "Animated frontend website using GSAP for interactive web design.",
+    description:
+      "Animated frontend website using GSAP for interactive web design.",
     tech: ["HTML", "CSS", "Javascript", "GSAP", "locomotive.js"],
     url: "https://vikash11995.github.io/Sundown-FrontEnd/",
   },
   {
     id: 2,
     title: "FreshCart Frontend",
-    description:
-      "Groceries site: simple layout, navigation, easy listings.",
+    description: "Groceries site: simple layout, navigation, easy listings.",
     tech: ["React", "Tailwind", "React-Router"],
     url: "https://fresh-cart-omega-three.vercel.app/",
   },
   {
     id: 3,
     title: "WebSeeder Courier",
-    description: "A courier project with the seamless layout and shortcut key to search any page ",
+    description:
+      "A courier project with the seamless layout and shortcut key to search any page ",
     tech: ["React", "Tailwind", "Javascript", "React-Router"],
     url: "https://courier-sooty.vercel.app/",
   },
@@ -316,7 +315,10 @@ export default function WebDeveloperPortfolio() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700 text-slate-100 antialiased overflow-y-auto no-scrollbar relative" style={{ overflowX: "hidden" }}>
+    <div
+      className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700 text-slate-100 antialiased overflow-y-auto no-scrollbar relative"
+      style={{ overflowX: "hidden" }}
+    >
       {/* Side rays animation background at top */}
       <SideRays
         speed={2}
@@ -342,16 +344,17 @@ export default function WebDeveloperPortfolio() {
       />
       <header className="max-w-2xl mx-auto mt-8 px-8 py-4 flex items-center justify-between relative z-[10] bg-gradient-to-r from-slate-900/80 via-slate-800/80 to-slate-700/80 shadow-xl rounded-2xl border border-slate-600/30 backdrop-blur-xl">
         <div className="flex items-center gap-4">
-          <span className="text-xl font-bold tracking-tight text-emerald-300 drop-shadow-sm">Vikash Yadav</span>
+          <span className="text-xl font-bold tracking-tight text-emerald-300 drop-shadow-sm">
+            Vikash Yadav
+          </span>
         </div>
         <MobileNav />
       </header>
- 
 
       <main className="max-w-6xl mx-auto px-6  relative z-[2]">
         <section className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center ">
           <div>
-          <p className="text-emerald-300 font-medium mb-2">
+            <p className="text-emerald-300 font-medium mb-2">
               Hi, I build delightful web experiences
             </p>
             <h1 className="text-4xl md:text-5xl font-bold leading-tight">
@@ -448,7 +451,7 @@ export default function WebDeveloperPortfolio() {
           <div className="relative ">
             <div className="absolute -right-8 -bottom-8 w-40 h-40 blur-3xl " />
             <img
-              src="./src/images/ai-generated-8718795.svg"
+              src={ProfileImg}
               alt=""
               className="w-[58vw] lg:block hidden"
             />
@@ -635,7 +638,6 @@ function MobileNav() {
               Contact
             </a>
           </div>
-     
         )}
       </div>
     </>
