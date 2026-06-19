@@ -1,8 +1,8 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Renderer, Program, Triangle, Mesh } from "ogl";
-import ProfileImg from "../images/profile.svg"
+import StaggeredMenu from '../animation/StaggeredMenu';
+import Orb from "../animation/Orb";
 
-// Utility to convert hex to normalized rgb
 const hexToRgb = (hex) => {
   const m = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   return m
@@ -14,7 +14,6 @@ const hexToRgb = (hex) => {
     : [1, 1, 1];
 };
 
-// Utility for flipping in the shader
 const originToFlip = (origin) => {
   switch (origin) {
     case "top-left":
@@ -342,7 +341,7 @@ export default function WebDeveloperPortfolio() {
           zIndex: 1,
         }}
       />
-      <header className="max-w-2xl mx-auto mt-8 px-8 py-4 flex items-center justify-between relative z-[10] bg-gradient-to-r from-slate-900/80 via-slate-800/80 to-slate-700/80 shadow-xl rounded-2xl border border-slate-600/30 backdrop-blur-xl">
+      <header className="max-w-2xl mx-auto md:mt-8 px-8 p-2.5 md:py-4 flex items-center justify-between relative z-[10] md:bg-linear-to-r from-slate-900/80 via-slate-800/80 to-slate-700/80 md:shadow-xl md:rounded-2xl border border-slate-600/30 backdrop-blur-xl">
         <div className="flex items-center gap-4">
           <span className="text-xl font-bold tracking-tight text-emerald-300 drop-shadow-sm">
             Vikash Yadav
@@ -352,7 +351,7 @@ export default function WebDeveloperPortfolio() {
       </header>
 
       <main className="max-w-6xl mx-auto px-6  relative z-[2]">
-        <section className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center ">
+        <section className="flex flex-col md:flex-row gap-8 items-center justify-between">
           <div>
             <p className="text-emerald-300 font-medium mb-2">
               Hi, I build delightful web experiences
@@ -381,11 +380,11 @@ export default function WebDeveloperPortfolio() {
               </a>
             </div>
 
-            <div className="mt-8 w-100">
+            <div className="mt-8 w-full">
               <h4 className="text-sm text-slate-400 mb-2">Skills</h4>
               <div className="overflow-x-hidden relative h-8">
                 <div
-                  className="absolute left-0 top-0 whitespace-nowrap animate-marquee flex gap-3"
+                  className="absolute left-0 top-0 whitespace-nowrap flex gap-3"
                   style={{
                     animation: "marquee 22s linear infinite",
                   }}
@@ -448,15 +447,25 @@ export default function WebDeveloperPortfolio() {
             </div>
           </div>
 
-          <div className="relative ">
-            <div className="absolute -right-8 -bottom-8 w-40 h-40 blur-3xl " />
-            <img
-              src={ProfileImg}
-              alt=""
-              className="w-[58vw] lg:block hidden"
-            />
+          <div className=" w-[50%]  hidden lg:block ">
+            
+            <div
+              className=" relative right-0 flex  w-[40vw] h-[600px]  p-4 "
+            
+            >
+              <Orb
+                hoverIntensity={2}
+                rotateOnHover={true}
+                hue={0}
+                forceHoverState={false}
+                backgroundColor="#000000"
+                className="w-auto h-auto overflow-auto"
+              />
+            </div>
           </div>
+   
         </section>
+ 
 
         <section id="projects" className="mt-20">
           <h2 className="text-2xl font-bold mb-6">Selected projects</h2>
@@ -542,6 +551,20 @@ export default function WebDeveloperPortfolio() {
 function MobileNav() {
   const [open, setOpen] = useState(false);
 
+  // Define menuItems and socialItems outside JSX expressions
+  const menuItems = [
+    { label: 'Home', ariaLabel: 'Go to home page', link: '/' },
+    { label: 'About', ariaLabel: 'Learn about us', link: '/about' },
+    { label: 'Services', ariaLabel: 'View our services', link: '/services' },
+    { label: 'Contact', ariaLabel: 'Get in touch', link: '/contact' }
+  ];
+
+  const socialItems = [
+    { label: 'Twitter', link: 'https://twitter.com' },
+    { label: 'GitHub', link: 'https://github.com' },
+    { label: 'LinkedIn', link: 'https://linkedin.com' }
+  ];
+
   return (
     <>
       {/* Desktop Nav */}
@@ -572,7 +595,7 @@ function MobileNav() {
         </a>
       </nav>
       {/* Mobile Hamburger */}
-      <div className="md:hidden relative">
+   <div className="md:hidden relative flex justify-center">
         <button
           className="flex flex-col justify-center items-center w-8 h-8 focus:outline-none"
           aria-label="Open navigation menu"
@@ -598,7 +621,7 @@ function MobileNav() {
         {open && (
           <div
             className={
-              "absolute right-0 mt-2 w-40 bg-slate-300 rounded shadow-lg py-2 z-50 flex flex-col " +
+              "absolute   items-center mt-11  -left-74 w-90  bg-linear-to-r from-slate-900/90  to-slate-900/90 rounded shadow-lg py-2 z-50 flex rounded-b-2xl flex-col  bg-white" +
               "transform transition-all duration-300 ease-out " +
               (open
                 ? "opacity-100 max-h-[500px] scale-y-100"
@@ -638,8 +661,8 @@ function MobileNav() {
               Contact
             </a>
           </div>
-        )}
-      </div>
+          )}
+          </div>
     </>
   );
 }
