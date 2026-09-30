@@ -313,6 +313,15 @@ export default function WebDeveloperPortfolio() {
     };
   }, []);
 
+  // Add smooth scroll CSS
+  useEffect(() => {
+    const prevScrollBehavior = document.documentElement.style.scrollBehavior;
+    document.documentElement.style.scrollBehavior = "smooth";
+    return () => {
+      document.documentElement.style.scrollBehavior = prevScrollBehavior;
+    };
+  }, []);
+
   return (
     <div
       className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700 text-slate-100 antialiased overflow-y-auto no-scrollbar relative"
@@ -369,12 +378,14 @@ export default function WebDeveloperPortfolio() {
               <a
                 href="#projects"
                 className="inline-block bg-emerald-400 text-slate-900 px-5 py-2 rounded-md font-semibold shadow-lg"
+                onClick={handleAnchorClick}
               >
                 See projects
               </a>
               <a
                 href="#contact"
                 className="inline-block border border-slate-500 px-5 py-2 rounded-md"
+                onClick={handleAnchorClick}
               >
                 Contact
               </a>
@@ -545,20 +556,52 @@ export default function WebDeveloperPortfolio() {
       </main>
     </div>
   );
+
+  // Smooth anchor scroll for internal anchor links
+  function handleAnchorClick(e) {
+    const href = e.currentTarget.getAttribute("href");
+    if (href && href.startsWith("#")) {
+      const id = href.substring(1);
+      const el = document.getElementById(id);
+      if (el) {
+        e.preventDefault();
+        el.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }
 }
 
 // Hamburger Navbar Component (moved out of JSX return)
 function MobileNav() {
   const [open, setOpen] = useState(false);
 
+  // Handles smooth scroll for anchor links/tabs
+  function handleNavClick(e) {
+    const href = e.currentTarget.getAttribute("href");
+    if (href && href.startsWith("#")) {
+      const id = href.substring(1);
+      const el = document.getElementById(id);
+      if (el) {
+        e.preventDefault();
+        setOpen(false);
+        setTimeout(() => {
+          el.scrollIntoView({ behavior: "smooth" });
+        }, 90);
+      }
+    } else {
+      setOpen(false);
+      // let default, e.g. reload/route for non-anchor links
+    }
+  }
+
   // Define menuItems and socialItems outside JSX expressions
+  // Unused, but leaving as is from original for context
   const menuItems = [
     { label: 'Home', ariaLabel: 'Go to home page', link: '/' },
     { label: 'About', ariaLabel: 'Learn about us', link: '/about' },
     { label: 'Services', ariaLabel: 'View our services', link: '/services' },
     { label: 'Contact', ariaLabel: 'Get in touch', link: '/contact' }
   ];
-
   const socialItems = [
     { label: 'Twitter', link: 'https://twitter.com' },
     { label: 'GitHub', link: 'https://github.com' },
@@ -578,24 +621,27 @@ function MobileNav() {
         <a
           className="hover:opacity-80 hover:text-green-600  cursor-pointer"
           href="#projects"
+          onClick={handleNavClick}
         >
           Projects
         </a>
         <a
           className="hover:opacity-80 hover:text-green-600  cursor-pointer"
           href="#contact"
+          onClick={handleNavClick}
         >
           About
         </a>
         <a
           className="hover:opacity-80  hover:text-green-600 cursor-pointer"
           href="#contact"
+          onClick={handleNavClick}
         >
           Contact
         </a>
       </nav>
       {/* Mobile Hamburger */}
-   <div className="md:hidden relative flex justify-center">
+      <div className="md:hidden relative flex justify-center">
         <button
           className="flex flex-col justify-center items-center w-8 h-8 focus:outline-none"
           aria-label="Open navigation menu"
@@ -634,35 +680,35 @@ function MobileNav() {
           >
             <a
               className="px-4 py-2 hover:bg-slate-700 cursor-pointer"
-              onClick={() => setOpen(false)}
+              onClick={handleNavClick}
               href="/"
             >
               Home
             </a>
             <a
               className="px-4 py-2 hover:bg-slate-700 cursor-pointer"
-              onClick={() => setOpen(false)}
+              onClick={handleNavClick}
               href="#projects"
             >
               Projects
             </a>
             <a
               className="px-4 py-2 hover:bg-slate-700 cursor-pointer"
-              onClick={() => setOpen(false)}
+              onClick={handleNavClick}
               href="#contact"
             >
               About
             </a>
             <a
               className="px-4 py-2 hover:bg-slate-700 cursor-pointer"
-              onClick={() => setOpen(false)}
+              onClick={handleNavClick}
               href="#contact"
             >
               Contact
             </a>
           </div>
-          )}
-          </div>
+        )}
+      </div>
     </>
   );
 }
