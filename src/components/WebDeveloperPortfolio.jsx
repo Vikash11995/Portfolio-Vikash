@@ -268,7 +268,7 @@ void main() {
   return (
     <div
       ref={containerRef}
-      className={`absolute top-0 left-0 w-full h-[340px] md:h-[480px] pointer-events-none select-none z-10 ${className}`.trim()}
+      className={`absolute top-0 left-0 w-full h-screen md:h-120 pointer-events-none select-none z-10 ${className}`.trim()}
       style={style}
       aria-hidden="true"
     />
@@ -323,7 +323,7 @@ export default function WebDeveloperPortfolio() {
         speed={2}
         rayColor1="#EAB308"
         rayColor2="#38bdf8"
-        intensity={2.1}
+        intensity={1.5}
         spread={2.8}
         origin="top-right"
         tilt={-13}
@@ -337,7 +337,7 @@ export default function WebDeveloperPortfolio() {
           top: 0,
           left: 0,
           width: "100vw",
-          height: "400px",
+          height: "120vh",
           zIndex: 1,
         }}
       />
@@ -528,7 +528,7 @@ export default function WebDeveloperPortfolio() {
               <p className="text-slate-300 mt-2">Location: India</p>
               <div className="mt-4">
                 <a
-                  href="https://drive.google.com/file/d/1UqXrWlTsvV_kyZdBKGnieFGDa2f9VbFT/view?usp=drive_link"
+                  href="https://drive.google.com/file/d/18Gw3BYQUj5BGq69Jo2_N9w1xFXoG3JuT/view?usp=drive_link"
                   className="inline-block px-4 py-2 border rounded hover:bg-emerald-500"
                 >
                   Download resume
